@@ -54,7 +54,7 @@ function normal(){
     let filtered = probscum.filter((val, idx, arr) => {return (val < rand)})
     let selected = filtered.length
     let bater = ["a", "b", "c", "d", "e", "f"]
-    document.getElementById("where").innerHTML = "bater em:" + bater[idxs[0]]
+    document.getElementById("where").innerHTML = "bater em:" + bater[selected]
     setTimeout(()=> {document.getElementById("where").innerHTML = ""}, 3000)    
     contagem[bater[selected]]++
     console.log(contagem)
