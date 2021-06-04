@@ -28,52 +28,34 @@ function pkReverse(){
             return curr
         })
         let rand = Math.random()*probscum[probscum.length-1]
-        console.log(rand)
-        let deleted = probs.filter((val, idx, arr) => {return (val < rand)}).length
+        let filtered = probscum.filter((val, idx, arr) => {return (val < rand)})
+        let deleted = filtered.length
+        probs = probs.filter((val, idx, arr) => {return (idx != deleted)})
+        idxs = idxs.filter((val, idx, arr)=> {return (idx != deleted)})
     }
     let bater = ["a", "b", "c", "d", "e", "f"]
-    console.log("bater em:" + bater[idxs[0]] )     
+    document.getElementById("where").innerHTML = "bater em:" + bater[idxs[0]]
+    setTimeout(()=> {document.getElementById("where").innerHTML = ""}, 3000)
     contagem[bater[idxs[0]]]++
     console.log(contagem)
-    
-
-
-
-
+   
 }
 
 function normal(){
+    let probs = [ 75, 95, 85, 85, 100, 95]
+    let idxs = probs.map((val, index, arr)=> {return index})
+    let probscum = probs.map((curr, index, arr) => {
+        if(index>0) {
+            return curr + probs.filter((val, idx, arr) => {if (idx< index) return true; return false;}).reduce(sum_arr,0) 
+        }
+        return curr
+    })
+    let rand = Math.random()*probscum[probscum.length-1]
+    let filtered = probscum.filter((val, idx, arr) => {return (val < rand)})
+    let selected = filtered.length
+    let bater = ["a", "b", "c", "d", "e", "f"]
+    document.getElementById("where").innerHTML = "bater em:" + bater[idxs[0]]
+    setTimeout(()=> {document.getElementById("where").innerHTML = ""}, 3000)    
+    contagem[bater[selected]]++
     console.log(contagem)
-    let rand = Math.random()*(75+95+85+85+100+95)
-    if (rand < 75){
-        console.log("Superior Esquerdo")
-        contagem.a++
-        return
-    }
-    rand -= 75
-    if (rand < 95){
-        console.log("Superior centro")
-        contagem.b++
-        return
-    }
-    rand -= 95
-    if (rand < 85) {
-        console.log("Superior direito")
-        contagem.c++
-        return
-    }
-    rand -= 85
-    if (rand < 85) {
-        console.log("inferior esquerdo")
-        contagem.d++
-        return
-    }
-    rand -= 85
-    if (rand < 100){
-        console.log("meio embaixo")
-        contagem.e++
-        return
-    }
-    contagem.f++
-    console.log("inferior direito")
 }
